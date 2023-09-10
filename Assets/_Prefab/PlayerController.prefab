@@ -44,14 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267cde9a4b85c1e41a9697d9862ba437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerSpeed: 1
-  m_CustomPlayerSpeed: 2
-  m_AccelerationSpeed: 10
-  m_DecelerationSpeed: 20
-  m_HorizontalSpeedFactor: 0.5
-  m_ScaleVelocity: 2
-  m_AutoMoveForward: 1
-  characterPrefab: {fileID: 3385842981440175842, guid: a5da5945d69e31d4baa4526ac0eb48d0, type: 3}
-  AttackRate: 1
-  rate: {fileID: 0}
-  unitCount: {fileID: 0}

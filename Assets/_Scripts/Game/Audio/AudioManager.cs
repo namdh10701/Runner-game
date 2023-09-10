@@ -15,6 +15,7 @@ namespace Game.Audio
         [Serializable]
         class SoundIDClipPair
         {
+            
             public SoundID m_SoundID;
             public AudioClip m_AudioClip;
         }
@@ -72,6 +73,7 @@ namespace Game.Audio
 
         void Start()
         {
+            Application.targetFrameRate = 300;
             foreach (var sound in _sounds)
             {
                 _clips.Add(sound.m_SoundID, sound.m_AudioClip);

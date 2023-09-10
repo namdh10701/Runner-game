@@ -11,8 +11,6 @@ namespace Game.Run
     /// </summary>
     public class Inventory : Singleton<Inventory>
     {
-        [SerializeField] GenericGameEventListener m_WinEventListener;
-        [SerializeField] GenericGameEventListener m_LoseEventListener;
         [SerializeField] TextMeshProUGUI goldText;
 
         int m_TempGold;
@@ -23,8 +21,6 @@ namespace Game.Run
 
         void Start()
         {
-            m_WinEventListener.EventHandler = OnWin;
-            m_LoseEventListener.EventHandler = OnLose;
             m_TempGold = 0;
             m_TempXp = 0;
             //TODO: Progess
@@ -38,14 +34,10 @@ namespace Game.Run
 
         void OnEnable()
         {
-            m_WinEventListener.Subscribe();
-            m_LoseEventListener.Subscribe();
         }
 
         void OnDisable()
         {
-            m_WinEventListener.Unsubscribe();
-            m_LoseEventListener.Unsubscribe();
         }
 
         public void OnGoldPicked(Collectable collectables)

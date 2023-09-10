@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 7943052438633917518}
   - component: {fileID: 4639735826529120212}
   - component: {fileID: 8164068621720978533}
+  - component: {fileID: 2550671135149137038}
   m_Layer: 0
   m_Name: PlayerMesh
   m_TagString: Player
@@ -826,7 +827,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -847,9 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 8311131672052514338}
-  _skinnedMeshRenderer: {fileID: 0}
-  _shootPoint: {fileID: 4268058838950678056}
-  BulletPrefab: {fileID: 314387739941697089, guid: 10b1c4953b14d234893acef17571b74a, type: 3}
+  LoopActBehaviour: {fileID: 2550671135149137038}
 --- !u!136 &4639735826529120212
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -900,6 +899,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2550671135149137038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3385842981440175842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca81bd8c1cf160446bfda867ba0c9bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActCooldown: 0
+  ActCooldownTime: 0
+  ActRate: 1
+  _shotPos: {fileID: 4268058838950678056}
+  _shotPool: NormalBulletPool
 --- !u!1 &3521758464227238736
 GameObject:
   m_ObjectHideFlags: 0

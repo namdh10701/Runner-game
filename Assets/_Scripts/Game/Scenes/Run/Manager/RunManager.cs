@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Run.Level;
 using Common;
+using Core;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -16,30 +18,20 @@ namespace Game.Run
     /// </summary>
     public class RunManager : Singleton<RunManager>
     {
-        /// <summary>
-        /// Returns the GameManager.
-        /// </summary>
-
-        [SerializeField]
-        AbstractGameEvent m_WinEvent;
-
-        [SerializeField]
-        AbstractGameEvent m_LoseEvent;
-
+        public GameObject winboard;
         LevelDefinition m_CurrentLevel;
-
+        public LayerMask EnemyLayer;
         /// <summary>
         /// Returns true if the game is currently active.
         /// Returns false if the game is paused, has not yet begun,
         /// or has ended.
         /// </summary>
-        public bool IsPlaying => m_IsPlaying;
-        bool m_IsPlaying;
-        GameObject m_CurrentLevelGO;
-        GameObject m_CurrentTerrainGO;
-        GameObject m_LevelMarkersGO;
+        public bool IsPlaying => _isPlaying;
+        bool _isPlaying;
+        GameObject _currentLevelGO;
+        GameObject _currentTerrainGO;
+        GameObject _levelMarkersGO;
 
-        List<Spawnable> m_ActiveSpawnables = new List<Spawnable>();
 
 #if UNITY_EDITOR
         bool m_LevelEditorMode;
@@ -48,6 +40,7 @@ namespace Game.Run
         protected override void Awake()
         {
             base.Awake();
+            Time.timeScale = 1;
 #if UNITY_EDITOR
             // If LevelManager already exists, user is in the LevelEditorWindow
             if (LevelManager.Instance != null)
@@ -70,9 +63,9 @@ namespace Game.Run
         {
             Debug.Log("Load level");
             m_CurrentLevel = levelDefinition;
-            LoadLevel(m_CurrentLevel, ref m_CurrentLevelGO);
-            CreateTerrain(m_CurrentLevel, ref m_CurrentTerrainGO);
-            PlaceLevelMarkers(m_CurrentLevel, ref m_LevelMarkersGO);
+            LoadLevel(m_CurrentLevel, ref _currentLevelGO);
+            CreateTerrain(m_CurrentLevel, ref _currentTerrainGO);
+            PlaceLevelMarkers(m_CurrentLevel, ref _levelMarkersGO);
             StartGame();
         }
 
@@ -132,7 +125,6 @@ namespace Game.Run
             levelGameObject = new GameObject("LevelManager");
             LevelManager levelManager = levelGameObject.AddComponent<LevelManager>();
             levelManager.LevelDefinition = levelDefinition;
-            Debug.Log("LoadLLLLL");
             Transform levelParent = levelGameObject.transform;
 
             for (int i = 0; i < levelDefinition.Spawnables.Length; i++)
@@ -186,19 +178,19 @@ namespace Game.Run
 
         public void UnloadCurrentLevel()
         {
-            if (m_CurrentLevelGO != null)
+            if (_currentLevelGO != null)
             {
-                GameObject.Destroy(m_CurrentLevelGO);
+                GameObject.Destroy(_currentLevelGO);
             }
 
-            if (m_LevelMarkersGO != null)
+            if (_levelMarkersGO != null)
             {
-                GameObject.Destroy(m_LevelMarkersGO);
+                GameObject.Destroy(_levelMarkersGO);
             }
 
-            if (m_CurrentTerrainGO != null)
+            if (_currentTerrainGO != null)
             {
-                GameObject.Destroy(m_CurrentTerrainGO);
+                GameObject.Destroy(_currentTerrainGO);
             }
 
             m_CurrentLevel = null;
@@ -207,7 +199,7 @@ namespace Game.Run
         void StartGame()
         {
             ResetLevel();
-            m_IsPlaying = true;
+            _isPlaying = true;
         }
 
         /// <summary>
@@ -264,7 +256,6 @@ namespace Game.Run
         /// </param>
         public static void CreateTerrain(LevelDefinition levelDefinition, ref GameObject terrainGameObject)
         {
-            Debug.Log(levelDefinition);
             TerrainGenerator.TerrainDimensions terrainDimensions = new TerrainGenerator.TerrainDimensions()
             {
                 Width = levelDefinition.LevelWidth,
@@ -278,32 +269,18 @@ namespace Game.Run
 
         public void Win()
         {
-            //UIManager.Instance.Show<LevelCompleteScreen>();
-
+/*            PlayerController.Instance.gameObject.SetActive(false);
+            Time.timeScale = 0;
+            winboard.gameObject.SetActive(true);*/
             //TODO: Handle progressing
             /*var levelProgress = SaveManager.Instance.LevelProgress;
               if (currentLevelIndex == levelProgress && currentLevelIndex < m_LevelStates.Count - 1)
               SaveManager.Instance.LevelProgress = levelProgress + 1;
             m_WinEvent.Raise();*/
-
-#if UNITY_EDITOR
-            if (m_LevelEditorMode)
-            {
-                ResetLevel();
-            }
-#endif
         }
 
         public void Lose()
         {
-            m_LoseEvent.Raise();
-
-#if UNITY_EDITOR
-            if (m_LevelEditorMode)
-            {
-                ResetLevel();
-            }
-#endif
         }
         public void OnCollect(Collectable collectable)
         {
@@ -319,16 +296,5 @@ namespace Game.Run
             }
         }
 
-        public void OnDestroyed(Destroyable destroyable)
-        {
-            switch (destroyable.ID)
-            {
-                case Destroyable.DestroyableID.Extra_Unit:
-                    PlayerController.Instance.SpawnUnit(1);
-                    break;
-                case Destroyable.DestroyableID.Zombie:
-                    break;
-            }
-        }
     }
 }

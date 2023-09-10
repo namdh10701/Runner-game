@@ -23,14 +23,9 @@ namespace Game.Run.Level
         public LevelDefinition LevelDefinition
         {
             get => m_LevelDefinition;
-            set 
+            set
             {
                 m_LevelDefinition = value;
-
-                if (m_LevelDefinition != null && PlayerController.Instance != null)
-                {
-                    PlayerController.Instance.SetMaxXPosition(m_LevelDefinition.LevelWidth);
-                }
             }
         }
         LevelDefinition m_LevelDefinition;
