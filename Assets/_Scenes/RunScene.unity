@@ -1375,8 +1375,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7262116161602280992}
-        m_TargetAssemblyTypeName: Game.Run.PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 7262116161602280995}
+        m_TargetAssemblyTypeName: Game.Run.UnitManager, Assembly-CSharp
         m_MethodName: SpawnUnit
         m_Mode: 3
         m_Arguments:
@@ -1650,6 +1650,10 @@ PrefabInstance:
     - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_Name
       value: Dynamic Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135886326569738825, guid: 56fae09712773584fb63896d473a98ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8135886327475159576, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_Color.a
@@ -1974,7 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b07f24b55aa069418a77d2a38ca7151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7848803422135861515, guid: 1ff0e549821fc9643bebc333c6835611, type: 3}
+  enemyPrefab: {fileID: 271806880559608783, guid: e7bc966e11132db46a8d9fbcd244e9ad, type: 3}
   enemyCount: {fileID: 177715438}
   rateText: {fileID: 560281810}
   count: 0
@@ -2558,10 +2562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7808efc15a9e747a2296a6534d81bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 5167290823727038247, guid: 10b1c4953b14d234893acef17571b74a, type: 3}
+  _projectilePrefab: {fileID: 2304363669289428617, guid: 10b1c4953b14d234893acef17571b74a, type: 3}
   bulletCount: {fileID: 641342515}
   count: 0
-  activeBullet: []
+  activeProjectiles: []
 --- !u!4 &1207472483
 Transform:
   m_ObjectHideFlags: 0
@@ -3739,19 +3743,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3381342404390503928, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 3381342404390503928, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 3381342404390503928, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9689932
+      value: 0.8857793
       objectReference: {fileID: 0}
     - target: {fileID: 3381342404390503928, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.24708745
+      value: 0.46410668
       objectReference: {fileID: 0}
     - target: {fileID: 3381342404390503928, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LocalRotation.y
@@ -3779,15 +3783,15 @@ PrefabInstance:
       objectReference: {fileID: 7262116161602280991}
     - target: {fileID: 4744671641081393494, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_Offset.y
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4744671641081393494, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_Offset.z
-      value: -13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4744671641081393494, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_LookAtOffset.y
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4744671641081393494, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_CameraAnglePreset
@@ -3800,6 +3804,10 @@ PrefabInstance:
     - target: {fileID: 8753615736912815404, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753615736912815404, guid: ffbe3110559b7cb4989ec047e639776b, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5841,7 +5849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 360130512}
-  UnitPrefab: {fileID: 3385842981440175842, guid: a5da5945d69e31d4baa4526ac0eb48d0, type: 3}
+  UnitPrefab: {fileID: 2745370960748135867, guid: 861b1b29eaab8a349ac17d9b4c47980a, type: 3}
 --- !u!1001 &7336289479080782784
 PrefabInstance:
   m_ObjectHideFlags: 0

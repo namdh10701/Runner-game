@@ -43,16 +43,16 @@ namespace Game.Run
             Time.timeScale = 1;
 #if UNITY_EDITOR
             // If LevelManager already exists, user is in the LevelEditorWindow
-            if (LevelManager.Instance != null)
-            {
-                StartGame();
-                m_LevelEditorMode = true;
-            }
+            /*            if (LevelManager.Instance != null)
+                        {
+                            StartGame();
+                            m_LevelEditorMode = true;
+                        }*/
 #endif
+            LoadLevel(LevelSelectionScreen.current);
         }
         private void Start()
         {
-            LoadLevel(LevelSelectionScreen.current);
         }
 
         /// <summary>

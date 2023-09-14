@@ -7,7 +7,7 @@ namespace Game.Run.UI
     public class HpBar : MonoBehaviour
     {
         [SerializeField] private Image _hpBar;
-
+        
         private void Awake()
         {
             GetComponent<Canvas>().worldCamera = Camera.main;
@@ -16,5 +16,6 @@ namespace Game.Run.UI
         {
             _hpBar.fillAmount = remainingHpRatio;
         }
+
     }
 }

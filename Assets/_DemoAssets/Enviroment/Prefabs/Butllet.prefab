@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 4807591157659393222}
   - component: {fileID: 5928528988436547237}
   - component: {fileID: 3558418781853425409}
-  - component: {fileID: 5167290823727038247}
+  - component: {fileID: 2304363669289428617}
+  - component: {fileID: 8097486642349773318}
+  - component: {fileID: 7911375543671088629}
   m_Layer: 0
   m_Name: Butllet
   m_TagString: PLAYER_DMG_CAUSE
@@ -109,7 +111,7 @@ CapsuleCollider:
   m_Height: 0.96798843
   m_Direction: 1
   m_Center: {x: 0.000000074505806, y: 0.010816246, z: -0.0000000745058}
---- !u!114 &5167290823727038247
+--- !u!114 &2304363669289428617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,11 +123,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740cd3402ce3eaa4490310793361b51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxDistance: 0
-  dmg: 35
-  elapsedTime: 0
+  _damageCause: {fileID: 7911375543671088629}
+  _projectileTrajectory: {fileID: 8097486642349773318}
   _trailRenderer: {fileID: 7928631139963451676}
-  _selfDriven: 1
+  _maxTravelDistance: 40
+--- !u!114 &8097486642349773318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314387739941697089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4a6541226e2264d8c1aa906c5e037d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TraveledDistance: 0
+  speed: 60
+--- !u!114 &7911375543671088629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314387739941697089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4a7f35fe4917a4085f3a8e95ac8380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dmg: 35
 --- !u!1 &6177190200785898016
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,9 +48,9 @@ namespace Game.Run.Level
         {
             if (other.CompareTag(Constant.PLAYER_DMG_CAUSE_TAG))
             {
-                Bullet projectileBehaviour = other.GetComponent<Bullet>();
-                projectileBehaviour.OnHit();
-                TakeHit(projectileBehaviour.Dmg);
+                Projectile projectile = other.GetComponent<Bullet>();
+                projectile.OnHit();
+                TakeHit(projectile.DamageCause.Dmg);
             }
         }
     }

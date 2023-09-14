@@ -89,21 +89,6 @@ namespace Game.Run
             return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y) && Mathf.Approximately(a.z, b.z);
         }
 
-        public void SetDeltaPosition(float swipeDelta)
-        {
-            if (_maxXPosition == 0.0f)
-            {
-                Debug.LogError("Player cannot move because SetMaxXPosition has never been called or Level Width is 0. If you are in the LevelEditor scene, ensure a level has been loaded in the LevelEditor Window!");
-            }
-
-            _targetPosition = _targetPosition + (_horizontalSpeed * swipeDelta);
-            _targetPosition = Mathf.Clamp(_targetPosition, -_maxXPosition + PlayerController.Instance.UnitManager.LeftHalfPlayerSize, _maxXPosition - PlayerController.Instance.UnitManager.RightHalfPlayerSize);
-            _xPos += _horizontalSpeed * Time.deltaTime * swipeDelta;
-            _xPos = Mathf.Clamp(_xPos, -_maxXPosition + PlayerController.Instance.UnitManager.LeftHalfPlayerSize, _maxXPosition - PlayerController.Instance.UnitManager.RightHalfPlayerSize);
-            _hasInput = true;
-        }
-
-
         public void CancelMovement()
         {
             _hasInput = false;
@@ -116,6 +101,49 @@ namespace Game.Run
 
         private void Update()
         {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.touches[0];
+                Vector3 mousePos = touch.position;
+                Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position); // Convert player position to screen coordinates
+               
+                float normalizedX = (mousePos.x - playerPos.x) / Screen.width; // Normalize mouse position
+                if (Mathf.Abs(normalizedX) > .01f)
+                {
+                    float targetXPos = _xPos + (normalizedX * 6);
+                    _xPos = Mathf.Lerp(_xPos, targetXPos, Time.deltaTime * 30);
+                }
+                // Update player position while clamping it within the bounds
+                _xPos = Mathf.Clamp(_xPos, -_maxXPosition + PlayerController.Instance.UnitManager.LeftHalfPlayerSize, _maxXPosition - PlayerController.Instance.UnitManager.RightHalfPlayerSize);
+
+            }
+
+          /*  if (Input.GetMouseButtonDown(0)) // Use the appropriate input method for your game
+            {
+                isSwiping = true; // Swipe started
+            }
+
+            if (Input.GetMouseButtonUp(0)) // Use the appropriate input method for your game
+            {
+                isSwiping = false; // Swipe ended
+            }
+
+            if (isSwiping)
+            {
+                // Swipe is in progress, move the player based on swipe direction
+                Vector3 mousePos = Input.mousePosition;
+                Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position); // Convert player position to screen coordinates
+                Debug.Log(playerPos);
+                float normalizedX = (mousePos.x - playerPos.x) / Screen.width; // Normalize mouse position
+                Debug.Log(normalizedX);
+                if (Mathf.Abs(normalizedX) > .01f)
+                {
+                    float targetXPos = _xPos + (normalizedX * 6);
+                    _xPos = Mathf.Lerp(_xPos, targetXPos, Time.deltaTime * 30);
+                }
+                // Update player position while clamping it within the bounds
+                _xPos = Mathf.Clamp(_xPos, -_maxXPosition + PlayerController.Instance.UnitManager.LeftHalfPlayerSize, _maxXPosition - PlayerController.Instance.UnitManager.RightHalfPlayerSize);
+            }*/
             float deltaTime = Time.deltaTime;
             if (!_autoMoveForward && !_hasInput)
             {
@@ -155,8 +183,6 @@ namespace Game.Run
                 float distanceTravelledSinceLastFrame = (_transform.position - _lastPosition).magnitude;
                 DistancePerSecond = distanceTravelledSinceLastFrame / deltaTime;
             }
-
-
             /*   if (_transform.position != _lastPosition)
                {
                    _transform.forward = Vector3.Lerp(_transform.forward, (_transform.position - _lastPosition).normalized, speed);

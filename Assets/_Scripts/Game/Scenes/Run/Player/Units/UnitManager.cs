@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 namespace Game.Run
@@ -16,6 +17,17 @@ namespace Game.Run
             24, 19, 12, 18, 23
         };
         Dictionary<int, Vector2> positionToCoordinates = new Dictionary<int, Vector2>();
+
+        public void TakeHit(DamageCause damageCause, Unit unit)
+        {
+            if (ActiveUnits.Contains(unit))
+            {
+                unit.TakeHit(damageCause.Dmg);
+            }
+        }
+
+
+
         private int _gridHeight = 5;
         private int _gridWidth = 5;
         private int _maxUnitNumber = 25;
@@ -97,23 +109,19 @@ namespace Game.Run
         {
             foreach (Unit unit in ActiveUnits)
             {
-                if (unit.Animator != null)
+                if (unit.Ability.IsAbilityCooldown)
                 {
-                    unit.Animator.SetFloat("Speed", PlayerController.Instance.PlayerMovement.DistancePerSecond);
+                    unit.Ability.AbilityCooldownTime += Time.deltaTime;
                 }
-                if (unit.LoopActBehaviour.IsActCooldown)
+                if (unit.Ability.AbilityCooldownTime > unit.Ability.AbilityUseRate)
                 {
-                    unit.LoopActBehaviour.ActCooldownTime += Time.deltaTime;
+                    unit.Ability.IsAbilityCooldown = false;
+                    unit.Ability.AbilityCooldownTime = 0;
                 }
-                if (unit.LoopActBehaviour.ActCooldownTime > unit.LoopActBehaviour.ActRate)
+                if (!unit.Ability.IsAbilityCooldown)
                 {
-                    unit.LoopActBehaviour.IsActCooldown = false;
-                    unit.LoopActBehaviour.ActCooldownTime = 0;
-                }
-                if (!unit.LoopActBehaviour.IsActCooldown)
-                {
-                    unit.LoopActBehaviour.Act();
-                    unit.LoopActBehaviour.IsActCooldown = true;
+                    unit.Ability.Use();
+                    unit.Ability.IsAbilityCooldown = true;
                 }
             }
         }
@@ -121,7 +129,7 @@ namespace Game.Run
         {
             foreach (Unit unit in ActiveUnits)
             {
-                unit.LoopActBehaviour.ActRate -= unit.LoopActBehaviour.ActRate * percentage;
+                unit.Ability.AbilityUseRate -= unit.Ability.AbilityUseRate * percentage;
             }
         }
     }

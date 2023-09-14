@@ -29,14 +29,14 @@ namespace Game.Run
         }
         public void Initialize()
         {
-            _levelManager = FindFirstObjectByType<LevelManager>();
             SetMaxXPosition();
             _playerMovement.ResetAll();
             _playerMovement.ResetSpeed();
         }
+        public float levelWidth; 
         public void SetMaxXPosition()
         {
-            _playerMovement.SetMaxXPosition(_levelManager.LevelDefinition.LevelWidth * _unitManager.HalfWidth);
+            _playerMovement.SetMaxXPosition(LevelManager.Instance.LevelDefinition.LevelWidth * _unitManager.HalfWidth);
         }
         public void ResetPlayer()
         {
